@@ -1,5 +1,7 @@
 # BA 运势
 
+![访问量](https://count.getloli.com/get/@astrbot_plugin_ba_fortune?theme=moebooru&padding=7))
+
 碧蓝档案（Blue Archive）主题的每日运势。抽一次，得到一张专属运势卡片。
 
 - 122 位学生随机出镜，全部带头像与专属台词
