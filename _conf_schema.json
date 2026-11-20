@@ -1,0 +1,27 @@
+{
+  "images_dir": {
+    "type": "string",
+    "description": "运势图片目录",
+    "default": "",
+    "hint": "留空则使用插件目录下的 images/。目录内按星级放 1.png ~ 5.png（也支持 .jpg/.jpeg/.webp）；找不到对应星级时用 any.png / 任意一张；都没有则只发文字。"
+  },
+  "daily_limit": {
+    "type": "int",
+    "description": "每人每天可查询次数",
+    "default": 1,
+    "min": 0,
+    "max": 10,
+    "hint": "0 表示不限制。默认每人每天一次，保证“今日运势”的仪式感。"
+  },
+  "show_stars": {
+    "type": "bool",
+    "description": "文字里显示星级",
+    "default": true
+  },
+  "dynamic_card": {
+    "type": "bool",
+    "description": "使用动态渲染的图片卡片",
+    "default": true,
+    "hint": "开启后每次生成专属卡片（含学生、进度条、宜忌）；关闭则用 images/ 里的固定图 + 文字。需要 playwright。"
+  }
+}
