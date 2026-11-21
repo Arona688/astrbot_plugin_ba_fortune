@@ -29,496 +29,128 @@ VERDICTS = {
 
 STAR_WEIGHTS = [8, 17, 25, 30, 20]
 
-STUDENT_LINES: dict[str, list[str]] = {
-    "阿罗娜": [
-        "老师，今天的日程我已经排好啦！",
-        "老师今天也要加油，我会一直在这里的。",
-    ],
-    "普拉娜": [
-        "已记录。这一天值得备份。",
-        "老师，我在整理前天、昨天和现在。",
-    ],
-    "爱露": [
-        "便利屋68，随时为您服务！",
-        "委托费可以商量，真的！",
-    ],
-    "艾米": [
-        "老师，今天的训练计划呢？",
-        "重量再加一点也没问题。",
-    ],
-    "晴奈": [
-        "老师～要不要喝杯咖啡？",
-        "我用的是自己的豆子哦。",
-    ],
-    "日富美": [
-        "补习部今天也照常营业。",
-        "老师，这次我一定及格！",
-    ],
-    "日奈": [
-        "风纪委员会今天也很和平……大概。",
-        "别再往后山跑了。",
-    ],
-    "星野": [
-        "呜嘿～老师来对策委员会坐坐吧。",
-        "大叔我啊，今天也想偷懒。",
-    ],
-    "伊织": [
-        "这种程度也敢来？",
-        "让开点，我要动手了。",
-    ],
-    "真纪": [
-        "老师，看我的新作品！",
-        "颜料又沾到衣服上了。",
-    ],
-    "妮露": [
-        "道具部随时待命！",
-        "这个机关绝对不会炸……对吧？",
-    ],
-    "泉": [
-        "食堂今天有新品！",
-        "这个好吃，那个也好吃！",
-    ],
-    "白子": [
-        "老师，要一起去沙漠吗？",
-        "枪我已经擦好了。",
-    ],
-    "瞬": [
-        "老师，今天的课结束了。",
-        "别把我当成小孩子。",
-    ],
-    "堇": [
-        "修行，从今天开始。",
-        "老师，请安静一点。",
-    ],
-    "鹤城": [
-        "要一起修行吗？",
-        "头脑……要冷静。",
-    ],
-    "泉奈": [
-        "忍法·今天也要努力！",
-        "泉奈会一直在老师身边。",
-    ],
-    "爱丽丝": [
-        "勇者大人，冒险开始啦！",
-        "老师，一起打副本吗？",
-    ],
-    "绿": [
-        "姐姐，别乱翻我的东西。",
-        "老师，这张图要修一下。",
-    ],
-    "切里诺": [
-        "红冬的纪律，不容松懈。",
-        "冷吗？靠近一点。",
-    ],
-    "柚子": [
-        "老、老师……能别看我吗？",
-        "我、我会努力的……",
-    ],
-    "梓": [
-        "今天也要保持优雅。",
-        "老师，您的领带歪了。",
-    ],
-    "小春": [
-        "老师！我没有在偷懒！",
-        "这次考试我会及格的！",
-    ],
-    "夏": [
-        "老师，要不要来杯特调？",
-        "今天的心情不错。",
-    ],
-    "若藻": [
-        "老师，祭典要一起吗？",
-        "百鬼夜行的夜晚最棒了！",
-    ],
-    "三森": [
-        "忍术修行，开始了。",
-        "百鬼夜行的规矩要守。",
-    ],
-    "忧": [
-        "图书室的书我整理好了。",
-        "请安静一点，好吗？",
-    ],
-    "日向": [
-        "老师，要一起祈祷吗？",
-        "愿今天也平安无事。",
-    ],
-    "真里奈": [
-        "老师，功课我写完了。",
-        "山海经的课程很难呢。",
-    ],
-    "宫子": [
-        "SRT的训练开始了。",
-        "任务优先，感情其次。",
-    ],
-    "美游": [
-        "老师，我能帮上忙吗？",
-        "对不起……我太没用了。",
-    ],
-    "月咏": [
-        "老师，今天也要出门吗？",
-        "我会保护好你的。",
-    ],
-    "美咲": [
-        "……别看我，我只是路过。",
-        "吵死了。…不过，留下来也可以。",
-    ],
-    "亚津子": [
-        "老师，今天也要一起吗？",
-        "我没事的，真的。",
-    ],
-    "纱织": [
-        "老师，别靠近我。",
-        "……谢谢你。",
-    ],
-    "和纱": [
-        "老师，看招——开个玩笑。",
-        "别担心，我会保护你。",
-    ],
-    "心奈": [
-        "老师，今天也辛苦了。",
-        "要不要休息一下？",
-    ],
-    "诺亚": [
-        "数据整理完毕，请过目。",
-        "这次的记录，我备份了三份。",
-    ],
-    "时雨": [
-        "老师，账目我核对完了。",
-        "钱要花在刀刃上哦。",
-    ],
-    "美祢": [
-        "礼数是必要的。",
-        "三一的荣耀，不容玷污。",
-    ],
-    "未花": [
-        "老师，茶会准备好了。",
-        "今天的红茶是特调的哦。",
-    ],
-    "惠": [
-        "老师，要一起做点什么吗？",
-        "今天也很有精神呢。",
-    ],
-    "樱子": [
-        "老师，今天的祈祷您来吗？",
-        "愿神明保佑。",
-    ],
-    "时": [
-        "老师，时间到了哦。",
-        "这一天，也要好好记录。",
-    ],
-    "小雪": [
-        "老师，要一起玩吗？",
-        "今天也下雪了呢。",
-    ],
-    "果穗": [
-        "老师，文件已经整理好了。",
-        "请确认一下这份报告。",
-    ],
-    "玲纱": [
-        "老师，侦查结果出来了。",
-        "这次也没问题。",
-    ],
-    "瑠海": [
-        "老师，要来一杯吗？",
-        "大人的世界，很复杂呢。",
-    ],
-    "南": [
-        "老师，红茶泡好了。",
-        "请慢用。",
-    ],
-    "芽瑠": [
-        "老师，今天的训练呢？",
-        "我还能再跑十圈！",
-    ],
-    "一花": [
-        "老师，要喝一杯吗？",
-        "放松点，别那么紧张。",
-    ],
-    "霞": [
-        "老师，今天的行程有变。",
-        "请按我说的做。",
-    ],
-    "御坂美琴": [
-        "老师，这种程度不算什么。",
-        "别、别误会，只是顺手。",
-    ],
-    "食蜂操祈": [
-        "老师，要听我的吗？",
-        "今天也要乖乖的哦。",
-    ],
-    "紫": [
-        "老师，今天要画画吗？",
-        "颜色……很难决定呢。",
-    ],
-    "莲华": [
-        "老师，今天也来泡温泉吗？",
-        "水温刚刚好。",
-    ],
-    "桔梗": [
-        "老师，任务完成了。",
-        "接下来，交给我吧。",
-    ],
-    "海香": [
-        "老师，今天的海很平静。",
-        "要不要一起出去？",
-    ],
-    "绮罗罗": [
-        "老师，新游戏到了！",
-        "这次绝对好玩！",
-    ],
-    "白子＊恐怖": [
-        "老师……今天也很安静呢。",
-        "沙漠里，只有风的声音。",
-    ],
-    "丽情": [
-        "老师，今天的计划是？",
-        "我会好好完成的。",
-    ],
-    "千明": [
-        "老师，要一起调查吗？",
-        "真相只有一个！",
-    ],
-    "圣娅": [
-        "老师，占卜的结果出来了。",
-        "命运……似乎站在你这边。",
-    ],
-    "丽": [
-        "老师，今天也辛苦了。",
-        "请好好休息。",
-    ],
-    "光": [
-        "老师，要走这边哦。",
-        "姐姐她……又在忙了。",
-    ],
-    "望": [
-        "老师，今天也要一起吗？",
-        "我会努力的！",
-    ],
-    "名草": [
-        "老师，百鬼夜行今天很热闹。",
-        "要不要一起走走？",
-    ],
-    "绘里": [
-        "老师，这幅画怎么样？",
-        "还差一点就完成了。",
-    ],
-    "庚": [
-        "老师，今天的巡逻报告。",
-        "我没有偷懒。",
-    ],
-    "美代": [
-        "老师，要一起发呆吗？",
-        "今天的天很蓝呢。",
-    ],
-    "冬": [
-        "老师，冷吗？",
-        "多穿一点比较好。",
-    ],
-    "昴": [
-        "老师，今天的训练开始了。",
-        "我不会输的。",
-    ],
-    "贵音": [
-        "老师，要听我唱歌吗？",
-        "今天的嗓子状态不错。",
-    ],
-    "柯伊": [
-        "老师……可以靠近一点吗？",
-        "我、我鼓起勇气了。",
-    ],
-    "木乃香": [
-        "老师，今天的茶会。",
-        "请尝尝这块点心。",
-    ],
-    "丽奈": [
-        "老师，行动开始了。",
-        "请跟在我后面。",
-    ],
-    "妮可": [
-        "老师，要去看夜景吗？",
-        "今晚的星星很漂亮。",
-    ],
-    "胡桃": [
-        "老师，找到线索了！",
-        "这个案子交给我。",
-    ],
-    "心": [
-        "老师，今天也要开心哦。",
-        "笑一笑嘛。",
-    ],
-    "琴音": [
-        "老师，今天的演出准备好了！",
-        "应援团，随时待命！",
-    ],
-    "安娜": [
-        "老师，今天的行程安排好了。",
-        "请不要太勉强自己。",
-    ],
-    "䌷": [
-        "老师，今天想去哪里？",
-        "我都可以哦。",
-    ],
-    "茜": [
-        "老师，我找到线索了！",
-        "这次也交给我吧。",
-    ],
-    "千世": [
-        "老师，今天要拍照吗？",
-        "这个角度最好看！",
-    ],
-    "明里": [
-        "老师，今天的巡逻！",
-        "守法是每个学生的义务。",
-    ],
-    "莲见": [
-        "老师，今天的祈祷。",
-        "愿您平安。",
-    ],
-    "野宫": [
-        "老师！自警团集合！",
-        "巡逻就交给我们！",
-    ],
-    "佳代子": [
-        "老师，今天的课结束了。",
-        "……算了，随你。",
-    ],
-    "睦月": [
-        "老师～来玩游戏吧？",
-        "这次我保证不作弊！",
-    ],
-    "纯子": [
-        "老师，今天也来帮忙吗？",
-        "清扫任务，开始！",
-    ],
-    "芹香": [
-        "别误会，我才不是特意等你！",
-        "钱……这个月有点紧。",
-    ],
-    "椿": [
-        "老师，可以睡着吗？",
-        "呼……呼……",
-    ],
-    "优香": [
-        "老师的报销单，我看过了哦。",
-        "这个月的预算……我们得谈谈。",
-    ],
-    "桃": [
-        "老师老师！来看这个新游戏！",
-        "这次绝对好玩！",
-    ],
-    "桐乃": [
-        "老师，今天的巡逻报告。",
-        "瓦尔基里的纪律。",
-    ],
-    "红叶": [
-        "老师，今天要画画吗？",
-        "红叶的颜色最好看了。",
-    ],
-    "春香": [
-        "老师，今天的课……好难。",
-        "我会努力的。",
-    ],
-    "明日奈": [
-        "老师，要不要喝杯咖啡？",
-        "今天也保持优雅吧。",
-    ],
-    "琴里": [
-        "老师，应援团随时待命！",
-        "今天也元气满满！",
-    ],
-    "铃美": [
-        "老师，魔法要开始了哦。",
-        "别眨眼。",
-    ],
-    "菲娜": [
-        "老师，今天的巡逻！",
-        "我跑得很快的！",
-    ],
-    "巴": [
-        "老师，任务完成了。",
-        "需要我做点什么吗？",
-    ],
-    "吹雪": [
-        "老师，今天也一起偷懒吧？",
-        "啊，被抓到了。",
-    ],
-    "满": [
-        "老师，今天要吃饭吗？",
-        "我做了很多哦。",
-    ],
-    "伊吹": [
-        "老师，今天的计划呢？",
-        "我准备好了。",
-    ],
-    "青叶": [
-        "老师，要不要一起看云？",
-        "今天的天空很漂亮。",
-    ],
-    "兰舞": [
-        "老师，要一起跳舞吗？",
-        "今天也很有精神呢。",
-    ],
-    "御伽": [
-        "老师，今天的修行。",
-        "请多指教。",
-    ],
-    "响": [
-        "老师，今天的应援！",
-        "大家都要加油！",
-    ],
-    "花凛": [
-        "射击训练，随时可以开始。",
-        "命中。……下一个。",
-    ],
-    "纱绫": [
-        "老师，今天的训练呢？",
-        "我会跟上的！",
-    ],
-    "真白": [
-        "狙击手已经就位。",
-        "风向……修正完毕。",
-    ],
-    "初音未来": [
-        "老师，今天要唱歌吗？",
-        "大家一起来吧！",
-    ],
-    "亚子": [
-        "风纪委员会的工作，交给我吧。",
-        "记录完毕，回头再算账。",
-    ],
-    "濑名": [
-        "老师，今天也要出去吗？",
-        "我陪你。",
-    ],
-    "千寻": [
-        "老师，数据整理好了。",
-        "黑客的工作，交给我。",
-    ],
-    "咲": [
-        "狙击点已经选好了。",
-        "别乱动，会打偏的。",
-    ],
-    "枫": [
-        "老师，今天也要努力！",
-        "百鬼夜行，出发！",
-    ],
-    "伊吕波": [
-        "老师，今天要去哪里？",
-        "我开车送你吧。",
-    ],
-    "日和": [
-        "老师，今天的天空很蓝。",
-        "要不要一起走走？",
-    ],
-    "萌绘": [
-        "老师！今天也要加油哦！",
-        "SRT最棒的！",
-    ],
-    "日鞠": [
-        "老师，今天的实验！",
-        "这次绝对没问题！",
-    ],
-}
+STUDENT_LINES: dict[str, list[str]] = {'阿罗娜': ['老师，今天的日程我已经排好啦！', '有我在，老师放心就好。', '要不要先看一眼今天的计划？'],
+ '普拉娜': ['已记录。这一天值得备份。', '老师，我在整理前天、昨天和现在。', '数据不会说谎，请相信我。'],
+ '爱露': ['便利屋68，随时为您服务！', '委托费可以商量，真的！', '这次的任务，我们一定办好。'],
+ '艾米': ['老师，今天的训练计划呢？', '重量再加一点也没问题。', '身体是最诚实的。'],
+ '晴奈': ['老师～要不要喝杯咖啡？', '我用的是自己的豆子哦。', '慢慢喝，别急。'],
+ '日富美': ['补习部今天也照常营业。', '老师，这次我一定及格！', '再讲一遍这道题好不好？'],
+ '日奈': ['风纪委员会，开始工作。', '……老师，别给我添麻烦。', '今天的巡逻，我来带队。'],
+ '星野': ['呜嘿～老师来对策委员会坐坐吧。', '大叔我啊，今天也想偷懒。', '阿拜多斯，交给我看着。'],
+ '伊织': ['这种程度也敢来？', '让开点，我要动手了。', '……别误会，我只是在训练。'],
+ '真纪': ['老师，看我的新作品！', '颜料又沾到衣服上了。', '这幅画，我想画完。'],
+ '妮露': ['道具部随时待命！', '这个机关绝对不会炸……对吧？', '三、二、一——发射！'],
+ '泉': ['食堂今天有新品！', '这个好吃，那个也好吃！', '老师也来一口？'],
+ '白子': ['老师，要一起去沙漠吗？', '枪我已经擦好了。', '——出发吧。'],
+ '瞬': ['课上完了，收拾一下。', '别把我当成小孩子。', '……我可不是小孩子。'],
+ '堇': ['修行，从今天开始。', '老师，请安静一点。', '心静，手就稳了。'],
+ '鹤城': ['要一起修行吗？', '……我不会输的。', '战场在哪？我这就去。'],
+ '泉奈': ['忍法·今天也要努力！', '泉奈会一直在老师身边。', '老师，忍者的修行开始了！'],
+ '爱丽丝': ['勇者大人，冒险开始啦！', '老师，一起打副本吗？', '光啊——！'],
+ '绿': ['姐姐，别乱翻我的东西。', '老师，这张图要修一下。', '画画的时候，我很专注。'],
+ '切里诺': ['红冬的纪律，不容松懈。', '冷吗？靠近一点。', '这里由我守着。'],
+ '柚子': ['老、老师……能别看我吗？', '我、我会努力的……', '游戏……要一起玩吗？'],
+ '梓': ['今天也要保持优雅。', '老师，您的领带歪了。', '优雅，是一种习惯。'],
+ '小春': ['老师！我没有在偷懒！', '这次考试我会及格的！', '补、补习部的事，交给我！'],
+ '夏': ['老师，要不要来杯特调？', '今天的心情不错。', '这杯，只给你调。'],
+ '若藻': ['老师，祭典要一起吗？', '百鬼夜行的夜晚最棒了！', '热闹一点才像祭典！'],
+ '三森': ['忍术修行，开始了。', '百鬼夜行的规矩要守。', '师出有名，行得正。'],
+ '忧': ['图书室的书我整理好了。', '请安静一点，好吗？', '书里的人，比现实温柔。'],
+ '日向': ['老师，要一起祈祷吗？', '愿今天也平安无事。', '主会听见的。'],
+ '真里奈': ['老师，功课我写完了。', '山海经的课程很难呢。', '再难的题，我也要弄懂。'],
+ '宫子': ['SRT的训练开始了。', '任务优先，感情其次。', '……这是命令。'],
+ '美游': ['老师，我能帮上忙吗？', '对不起……我太没用了。', '我会努力的，真的。'],
+ '月咏': ['老师，今天也要出门吗？', '我会保护好你的。', '警戒中，请勿靠近。'],
+ '美咲': ['……别看我，我只是路过。', '吵死了。…不过，留下来也可以。', '这种温柔，我不习惯。'],
+ '亚津子': ['老师，今天也要一起吗？', '我没事的，真的。', '……谢谢你陪着我。'],
+ '纱织': ['老师，别靠近我。', '……谢谢你。', '阿里乌斯的事，我自己来。'],
+ '和纱': ['老师，看招——开个玩笑。', '别担心，我会保护你。', '来，笑一个。'],
+ '心奈': ['老师，今天也辛苦了。', '要不要休息一下？', '身体要紧哦。'],
+ '诺亚': ['数据整理完毕，请过目。', '这次的记录，我备份了三份。', '数字不会骗人。'],
+ '时雨': ['老师，账目我核对完了。', '钱要花在刀刃上哦。', '这本账，我盯着。'],
+ '美祢': ['礼数是必要的。', '三一的荣耀，不容玷污。', '请端正你的态度。'],
+ '未花': ['老师，茶会准备好了。', '今天的红茶是特调的哦。', '坐下来，慢慢聊。'],
+ '惠': ['老师，要一起做点什么吗？', '今天也很有精神呢。', '手脚快点，才不浪费时间。'],
+ '樱子': ['老师，今天的祈祷您来吗？', '愿神明保佑。', '安静地听着就好。'],
+ '时': ['老师，时间到了哦。', '这一天，也要好好记录。', '……一秒也不能浪费。'],
+ '小雪': ['老师，要一起玩吗？', '今天也下雪了呢。', '雪地里，走路要小心。'],
+ '果穗': ['老师，文件已经整理好了。', '请确认一下这份报告。', '细节不能出错。'],
+ '玲纱': ['老师，侦查结果出来了。', '这次也没问题。', '情报已经确认。'],
+ '瑠海': ['老师，要来一杯吗？', '大人的世界，很复杂呢。', '喝一杯，忘一天。'],
+ '南': ['老师，红茶泡好了。', '请慢用。', '温度刚好。'],
+ '芽瑠': ['老师，今天的训练呢？', '我还能再跑十圈！', '体力就是一切！'],
+ '一花': ['老师，要喝一杯吗？', '放松点，别那么紧张。', '来，坐这边。'],
+ '霞': ['老师，今天的行程有变。', '请按我说的做。', '计划，我已经改好了。'],
+ '御坂美琴': ['老师，这种程度不算什么。', '别、别误会，只是顺手。', '电击——开玩笑的。'],
+ '食蜂操祈': ['老师，要听我的吗？', '今天也要乖乖的哦。', '……别想太多。'],
+ '紫': ['老师，今天要画画吗？', '颜色……很难决定呢。', '这一笔，我想画得慢一点。'],
+ '莲华': ['老师，今天也来泡温泉吗？', '水温刚刚好。', '温泉，是最好的药。'],
+ '桔梗': ['老师，任务完成了。', '接下来，交给我吧。', '刀已出鞘。'],
+ '海香': ['老师，今天的海很平静。', '要不要一起出去？', '海风吹着，很舒服吧。'],
+ '绮罗罗': ['老师，新游戏到了！', '这次绝对好玩！', '一起开一局？'],
+ '白子＊恐怖': ['老师……今天也很安静呢。', '沙漠里，只有风的声音。', '……别回头。'],
+ '丽情': ['老师，今天的计划是？', '我会好好完成的。', '交给我，别担心。'],
+ '千明': ['老师，要一起调查吗？', '真相只有一个！', '线索，我已经找齐了。'],
+ '圣娅': ['老师，占卜的结果出来了。', '命运……似乎站在你这边。', '牌面，不会说谎。'],
+ '丽': ['今天也请好好休息。', '请好好休息。', '今天也请注意身体。'],
+ '光': ['老师，要走这边哦。', '姐姐她……又在忙了。', '跟着我，不会走丢。'],
+ '望': ['老师，需要人手吗？', '我会努力的！', '有什么我能帮忙的吗？'],
+ '名草': ['老师，百鬼夜行今天很热闹。', '要不要一起走走？', '街上的人，都很友善。'],
+ '绘里': ['老师，这幅画怎么样？', '还差一点就完成了。', '颜色，我很讲究。'],
+ '庚': ['老师，今天的巡逻报告。', '我没有偷懒。', '路线已经走完了。'],
+ '美代': ['老师，要一起发呆吗？', '今天的天很蓝呢。', '什么都不做，也很好。'],
+ '冬': ['老师，冷吗？', '多穿一点比较好。', '冬天，也有冬天的好。'],
+ '昴': ['老师，今天的训练开始了。', '我不会输的。', '再来一次！'],
+ '贵音': ['老师，要听我唱歌吗？', '今天的嗓子状态不错。', '这首歌，送给老师。'],
+ '柯伊': ['老师……可以靠近一点吗？', '我、我鼓起勇气了。', '……谢谢你不嫌弃我。'],
+ '木乃香': ['老师，今天的茶会。', '请尝尝这块点心。', '茶要趁热喝。'],
+ '丽奈': ['老师，行动开始了。', '请跟在我后面。', '别出声。'],
+ '妮可': ['老师，要去看夜景吗？', '今晚的星星很漂亮。', '这里看星星最好了。'],
+ '胡桃': ['老师，找到线索了！', '这个案子交给我。', '细节里藏着真相。'],
+ '心': ['老师，今天也要开心哦。', '笑一笑嘛。', '开心最重要。'],
+ '琴音': ['老师，今天的演出准备好了！', '应援团，随时待命！', '大家——加油！'],
+ '安娜': ['老师，今天的行程安排好了。', '请不要太勉强自己。', '我会帮你的。'],
+ '䌷': ['老师，今天想去哪里？', '我都可以哦。', '跟你一起就好。'],
+ '茜': ['老师，我找到线索了！', '这次也交给我吧。', '这个谜题，有意思。'],
+ '千世': ['老师，今天要拍照吗？', '这个角度最好看！', '笑一下，三、二、一！'],
+ '明里': ['老师，今天的巡逻！', '守法是每个学生的义务。', '秩序，要有人守护。'],
+ '莲见': ['老师，今天的祈祷。', '愿您平安。', '……请保重。'],
+ '野宫': ['老师！自警团集合！', '巡逻就交给我们！', '阿拜多斯，由我守护！'],
+ '佳代子': ['老师，今天的课结束了。', '……算了，随你。', '便利屋的事，交给我。'],
+ '睦月': ['老师～来玩游戏吧？', '这次我保证不作弊！', '输了可不许赖账哦。'],
+ '纯子': ['老师，今天也来帮忙吗？', '清扫任务，开始！', '这里，交给我打扫！'],
+ '芹香': ['别误会，我才不是特意等你！', '钱……这个月有点紧。', '柴关拉面，今天也营业！'],
+ '椿': ['老师，可以睡着吗？', '呼……呼……', '……啊，我睡着了吗？'],
+ '优香': ['老师的报销单，我看过了哦。', '这个月的预算……我们得谈谈。', '算术不会骗人。'],
+ '桃': ['老师老师！来看这个新游戏！', '这关卡超难的！', '一起玩嘛！'],
+ '桐乃': ['今天的巡逻报告在这里。', '瓦尔基里的纪律。', '巡逻路线已确认。'],
+ '红叶': ['老师，今天画点什么？', '红叶的颜色最好看了。', '这一笔，是秋天。'],
+ '春香': ['老师，今天的课……好难。', '我会努力的。', '……别丢下我。'],
+ '明日奈': ['老师，一起去吃点什么吧？', '有我在，放心。', '跟着我，不会迷路！'],
+ '琴里': ['老师，应援团随时待命！', '今天也元气满满！', '加油——！'],
+ '铃美': ['老师，魔法要开始了哦。', '别眨眼。', '……骗你的，是枪。'],
+ '菲娜': ['今天的巡逻，我也去！', '我跑得很快的！', '追得上我吗？'],
+ '巴': ['任务完成，请过目。', '需要我做点什么吗？', '任务交接完毕。'],
+ '吹雪': ['老师，今天也一起偷懒吧？', '啊，被抓到了。', '效率工作，省下时间休息。'],
+ '满': ['老师，今天要吃饭吗？', '我做了很多哦。', '吃饱了才有力气。'],
+ '伊吹': ['老师，今天的计划呢？', '我准备好了。', '……可以开始了吗？'],
+ '青叶': ['老师，要不要一起看云？', '今天的天空很漂亮。', '云的颜色，每天都不一样。'],
+ '兰舞': ['老师，要一起跳舞吗？', '节奏感不错嘛！', '来，跟着节拍！'],
+ '御伽': ['老师，今天的修行。', '请多指教。', '妖怪的传说，要听吗？'],
+ '响': ['老师，今天的应援！', '大家都要加油！', '声音，要传得更远！'],
+ '花凛': ['射击训练，随时可以开始。', '命中。……下一个。', '风向，我看清了。'],
+ '纱绫': ['训练，我准备好了。', '我会跟上的！', '……别小看人。'],
+ '真白': ['狙击手已经就位。', '风向……修正完毕。', '目标，锁定。'],
+ '初音未来': ['老师，今天要唱歌吗？', '大家一起来吧！', '这首歌，一起唱！'],
+ '亚子': ['风纪委员会的工作，交给我吧。', '记录完毕，回头再算账。', '规矩，就是规矩。'],
+ '濑名': ['老师，今天也要出去吗？', '我陪你。', '受伤的话，交给我。'],
+ '千寻': ['老师，数据整理好了。', '黑客的工作，交给我。', '防火墙，我来看。'],
+ '咲': ['狙击点已经选好了。', '别乱动，会打偏的。', '……屏住呼吸。'],
+ '枫': ['老师，今天也要努力！', '百鬼夜行，出发！', '修行，从打扫开始。'],
+ '伊吕波': ['老师，今天要去哪里？', '我开车送你吧。', '……系好安全带。'],
+ '日和': ['老师，今天的天空很蓝。', '要不要一起晒晒太阳？', '这样的日子，很难得。'],
+ '萌绘': ['老师！今天也要加油哦！', 'SRT最棒的！', '一起训练吧！'],
+ '日鞠': ['老师，今天的实验！', '这次绝对没问题！', '数据……应该没错。']}
 
 STUDENTS = [(name, lines) for name, lines in STUDENT_LINES.items()]
 
@@ -854,6 +486,19 @@ class BAFortunePlugin(Star):
     .story { margin-top: 12px; padding: 14px 16px; font-size: 14px; line-height: 1.75; color: #38414d; }
     .story b { color: #2f6fed; }
     .foot { margin-top: 12px; font-size: 12px; color: #8a94a3; text-align: right; }
+    .cardfoot {
+      margin-top: 12px; display: flex; align-items: center;
+      justify-content: space-between; gap: 12px;
+    }
+    .cardfoot .foot { margin-top: 0; flex: 1; }
+    .cmdchip {
+      display: inline-flex; align-items: center; gap: 6px; flex: 0 0 auto;
+      padding: 6px 12px; border-radius: 999px; font-size: 12px;
+      color: #2f6fed; background: rgba(255,255,255,.88);
+      border: 1px solid rgba(120,170,235,.45);
+      box-shadow: 0 1px 4px rgba(90,150,230,.12); letter-spacing: .3px;
+    }
+    .cmdchip b { font-weight: 700; }
     """
 
     # ───────────────────────── 素材 / 头像 ─────────────────────────
@@ -1068,7 +713,10 @@ class BAFortunePlugin(Star):
     </div>
 
     <div class="story glass"><b>解读</b>　{_html.escape(result['story'])}</div>
-    <div class="foot">{_html.escape(result['advice'])}</div>
+    <div class="cardfoot">
+      <div class="cmdchip">📊 看全群运势 · 发 <b>/ba运势榜</b></div>
+      <div class="foot">{_html.escape(result['advice'])}</div>
+    </div>
   </div>
 </div></body></html>"""
 
@@ -1076,7 +724,7 @@ class BAFortunePlugin(Star):
     * { box-sizing: border-box; }
     body { margin: 0; background: #eef6ff; font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; }
     .board {
-      width: 720px; padding: 24px 26px 20px; overflow: hidden;
+      width: 760px; padding: 24px 26px 20px; overflow: hidden;
       background: linear-gradient(160deg, #eaf4ff 0%, #fbfeff 48%, #fff8f1 100%);
       position: relative;
     }
@@ -1093,33 +741,72 @@ class BAFortunePlugin(Star):
     .brand { font-size: 11px; letter-spacing: 2px; color: #9aa6b2; margin-top: 2px; }
     .logo { width: 210px; height: auto; display: block; margin-bottom: 6px; }
     .title { font-size: 22px; font-weight: 700; }
-    .date { font-size: 13px; color: #7b8794; }
+    .date { font-size: 13px; color: #7b8794; text-align: right; }
+    .date .time { display: block; font-size: 11px; color: #a3adba; margin-top: 2px; }
     .sub { margin-top: 6px; font-size: 13px; color: #6b7683; }
-    .list { margin-top: 16px; position: relative; z-index: 2; }
+
+    .stats { display: flex; gap: 10px; margin-top: 14px; position: relative; z-index: 2; }
+    .stat {
+      flex: 1; padding: 10px 12px; border-radius: 12px;
+      background: rgba(255,255,255,.78); border: 1px solid rgba(150,195,240,.32);
+    }
+    .stat .k { font-size: 11px; color: #8a94a3; letter-spacing: 1px; }
+    .stat .v { font-size: 20px; font-weight: 700; color: #2f6fed; margin-top: 2px; }
+    .stat .v small { font-size: 12px; font-weight: 500; color: #8a94a3; margin-left: 2px; }
+
+    .chart {
+      margin-top: 12px; padding: 12px 14px; border-radius: 14px;
+      background: rgba(255,255,255,.72); border: 1px solid rgba(150,195,240,.28);
+      position: relative; z-index: 2;
+    }
+    .chart .ctitle { font-size: 12px; color: #7b8794; margin-bottom: 8px; letter-spacing: 1px; }
+    .barrow { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+    .barlabel { width: 74px; font-size: 12px; color: #ffb400; letter-spacing: 1px; }
+    .bartrack { flex: 1; height: 10px; border-radius: 6px; background: #e8f0fa; overflow: hidden; }
+    .barfill { height: 100%; border-radius: 6px; }
+    .barfill.s5 { background: linear-gradient(90deg,#ffd166,#ff9f43); }
+    .barfill.s4 { background: linear-gradient(90deg,#a5d8ff,#5b8def); }
+    .barfill.s3 { background: linear-gradient(90deg,#b2f2bb,#51cf66); }
+    .barfill.s2 { background: linear-gradient(90deg,#ffe3e3,#ff8787); }
+    .barfill.s1 { background: linear-gradient(90deg,#e9ecef,#adb5bd); }
+    .barval { width: 26px; text-align: right; font-size: 12px; color: #6b7683; }
+
+    .list { margin-top: 14px; position: relative; z-index: 2; }
     .item {
       display: flex; align-items: center; gap: 12px; padding: 11px 14px;
       background: rgba(255, 255, 255, .74);
       border: 1px solid rgba(150, 195, 240, .32); border-radius: 14px;
       margin-bottom: 8px; position: relative; z-index: 2;
     }
-    .item.top1 { border-color: #ffd166; box-shadow: 0 2px 8px rgba(255,190,80,.20); }
+    .item.top1 { border-color: #ffd166; box-shadow: 0 2px 8px rgba(255,190,80,.20); background: rgba(255,252,240,.9); }
     .item.top2 { border-color: #d7dde5; }
     .item.top3 { border-color: #e8c7a5; }
     .rank { width: 34px; text-align: center; font-size: 18px; font-weight: 700; color: #4a5563; }
     .icon { width: 46px; height: 46px; border-radius: 50%; overflow: hidden; flex: 0 0 46px; background: #dbe9fb; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 18px; font-weight: 700; }
     .icon img { width: 100%; height: 100%; object-fit: cover; }
     .who { flex: 1; min-width: 0; }
-    .name { font-size: 16px; font-weight: 600; }
+    .name { font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+    .tag { font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 6px; }
+    .tag.luck { color: #b8860b; background: #fff3cd; border: 1px solid #ffe08a; }
+    .tag.bad { color: #8a94a3; background: #eef1f5; border: 1px solid #dde3ea; }
     .meta { font-size: 12px; color: #7b8794; margin-top: 2px; }
-    .stars { font-size: 16px; color: #ffb400; letter-spacing: 2px; }
-    .verdict { font-size: 13px; color: #2f6fed; font-weight: 700; margin-left: 6px; }
-    .foot { margin-top: 12px; font-size: 12px; color: #8a94a3; text-align: right; }
+    .right { text-align: right; }
+    .stars { font-size: 16px; color: #ffb400; letter-spacing: 2px; display: block; }
+    .verdict { font-size: 13px; color: #2f6fed; font-weight: 700; }
+    .foot { margin-top: 12px; font-size: 12px; color: #8a94a3; display: flex; justify-content: space-between; }
     """
 
     def _board_html(self, rows: list[dict], avatars: dict | None = None) -> str:
         import html as _html
 
         avatars = avatars or {}
+        total = len(rows)
+        stars_all = [int(r.get("star", 0) or 0) for r in rows]
+        avg = (sum(stars_all) / total) if total else 0.0
+        luck = sum(1 for x in stars_all if x >= 4)
+        unlucky = sum(1 for x in stars_all if x <= 2)
+        dist = {n: sum(1 for x in stars_all if x == n) for n in range(5, 0, -1)}
+
         items = []
         medals = ["🥇", "🥈", "🥉"]
         for idx, rec in enumerate(rows[:15]):
@@ -1129,6 +816,11 @@ class BAFortunePlugin(Star):
             name = _html.escape(str(rec.get("name", "?")))
             student = _html.escape(str(rec.get("student", "")))
             verdict = _html.escape(str(rec.get("verdict", "")))
+            tag = ""
+            if star >= 5:
+                tag = '<span class="tag luck">欧皇</span>'
+            elif star <= 2:
+                tag = '<span class="tag bad">非酋</span>'
             icon_uri = avatars.get(str(rec.get("name", ""))) or ""
             if not icon_uri:
                 icon_uri = self._default_avatar_uri()
@@ -1142,13 +834,27 @@ class BAFortunePlugin(Star):
                 f'<div class="{cls}">'
                 f'<div class="rank">{rank}</div>'
                 f'<div class="icon">{icon}</div>'
-                f'<div class="who"><div class="name">{name}</div>'
+                f'<div class="who"><div class="name">{name}{tag}</div>'
                 f'<div class="meta">幸运学生 · {student}</div></div>'
-                f'<div><span class="stars">{stars}</span>'
+                f'<div class="right"><span class="stars">{stars}</span>'
                 f'<span class="verdict">{verdict}</span></div>'
                 f"</div>"
             )
-        today = self._now().strftime("%Y-%m-%d")
+
+        bars = []
+        for n in range(5, 0, -1):
+            count = dist[n]
+            pct = (count / total * 100) if total else 0.0
+            bars.append(
+                f'<div class="barrow"><div class="barlabel">{"★" * n}</div>'
+                f'<div class="bartrack"><div class="barfill s{n}" style="width:{pct:.1f}%"></div></div>'
+                f'<div class="barval">{count}</div></div>'
+            )
+
+        now = self._now()
+        today = now.strftime("%Y-%m-%d")
+        clock = now.strftime("%H:%M")
+        max_stars = "★" * 5
         logo_uri = self._asset_uri("logo.png")
         emblem_uri = self._asset_uri("schale.png")
         return f"""<!doctype html><html lang="zh-CN"><head><meta charset="utf-8" />
@@ -1163,13 +869,25 @@ class BAFortunePlugin(Star):
         <div class="brand">基沃托斯 · 今日谁最欧</div>
       </div>
     </div>
-    <div class="date">{today}</div>
+    <div class="date">{today}<span class="time">更新于 {clock}</span></div>
   </div>
-  <div class="sub">共 {len(rows)} 人参与 · 最高 ★★★★★</div>
-  <div class="list">{''.join(items)}</div>
-  <div class="foot">发 /ba运势 参与</div>
-</div></body></html>"""
+  <div class="sub">共 {total} 人参与 · 最高 {max_stars}</div>
 
+  <div class="stats">
+    <div class="stat"><div class="k">参与人数</div><div class="v">{total}<small>人</small></div></div>
+    <div class="stat"><div class="k">平均星级</div><div class="v">{avg:.1f}<small>★</small></div></div>
+    <div class="stat"><div class="k">大吉率</div><div class="v">{(luck / total * 100) if total else 0:.0f}<small>%</small></div></div>
+    <div class="stat"><div class="k">非酋</div><div class="v">{unlucky}<small>人</small></div></div>
+  </div>
+
+  <div class="chart">
+    <div class="ctitle">星级分布</div>
+    {"".join(bars)}
+  </div>
+
+  <div class="list">{"".join(items)}</div>
+  <div class="foot"><span>🏆 前 15 名 · 每天 0 点重置</span><span>发 /ba运势 参与</span></div>
+</div></body></html>"""
     async def _render_board(self, rows: list[dict], avatars: dict | None = None) -> str:
         import tempfile
         from pathlib import Path as _Path
@@ -1240,9 +958,24 @@ class BAFortunePlugin(Star):
     def _record_key(self, event: AstrMessageEvent, user_id: str) -> str:
         return f"{self._group_key(event)}:{user_id}"
 
-    @filter.regex(r"(?i)^ba运势$")
+    def _is_unlimited(self, event: AstrMessageEvent, uid: str) -> bool:
+        """是否不受每日次数限制：配置名单 + AstrBot 管理员。"""
+        raw = str(self.config.get("unlimited_users", "") or "")
+        ids = {x.strip() for x in raw.replace("，", ",").split(",") if x.strip()}
+        if uid and uid in ids:
+            return True
+        if bool(self.config.get("admin_unlimited", True)):
+            try:
+                if event.is_admin():
+                    return True
+            except Exception:
+                pass
+        return False
+
+    @filter.regex(r"(?i)^[\s/]*ba运势$")
     async def ba_fortune(self, event: AstrMessageEvent):
         """今日 BA 运势。"""
+        event.stop_event()
         user_id = str(event.get_sender_id() or "")
         today = self._today()
         limit = int(self.config.get("daily_limit", 1) or 0)
@@ -1259,7 +992,7 @@ class BAFortunePlugin(Star):
         rec = dict(rec or {})
         used = int(rec.get("n", 0) or 0)
 
-        if limit > 0 and used >= limit:
+        if limit > 0 and used >= limit and not self._is_unlimited(event, user_id):
             yield event.plain_result(
                 "今天的运势已经抽过啦～\n阿罗娜说：贪心的人会被头盔团盯上的哦。"
             )
@@ -1299,9 +1032,10 @@ class BAFortunePlugin(Star):
         chain.append(Plain(text))
         yield event.chain_result(chain)
 
-    @filter.regex(r"(?i)^ba运势榜$")
+    @filter.regex(r"(?i)^[\s/]*ba运势榜$")
     async def ba_board(self, event: AstrMessageEvent):
         """今日运势榜。"""
+        event.stop_event()
         cache = self._load_cache()
         if cache.get("date") != self._today():
             yield event.plain_result("今天还没有人抽运势哦～发 /ba运势 试试")

@@ -23,5 +23,17 @@
     "description": "使用动态渲染的图片卡片",
     "default": true,
     "hint": "开启后每次生成专属卡片（含学生、进度条、宜忌）；关闭则用 images/ 里的固定图 + 文字。需要 playwright。"
+  },
+  "unlimited_users": {
+    "type": "string",
+    "description": "不受次数限制的用户",
+    "default": "",
+    "hint": "填用户 ID，多个用逗号分隔。这些人和机器人管理员不受 daily_limit 限制。"
+  },
+  "admin_unlimited": {
+    "type": "bool",
+    "description": "机器人管理员不受限制",
+    "default": true,
+    "hint": "开启后，AstrBot 配置里 admins_id 的用户可以无限抽。"
   }
 }
