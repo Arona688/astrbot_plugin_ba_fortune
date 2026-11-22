@@ -8,7 +8,10 @@
 from __future__ import annotations
 
 import datetime
+import hashlib
 import json
+
+import aiohttp
 import random
 from pathlib import Path
 
@@ -271,7 +274,135 @@ class BAFortunePlugin(Star):
         self.cache_file = self.data_dir / "daily.json"
         self.plugin_dir = Path(__file__).resolve().parent
         self._midnight_task = None
+        self.qq = None  # qqoffice_expand 服务门面（可选）
+        self._qq_unsubs: list = []
         self._start_midnight_task()
+
+    def _try_bind_qq(self) -> bool:
+        try:
+            meta = self.context.get_registered_star("astrbot_plugin_qqoffice_expand")
+            if not (meta and meta.activated and meta.star_cls):
+                return False
+            getter = getattr(meta.star_cls, "get_service", None)
+            if not callable(getter):
+                return False
+            service = getter(api_version=1)
+            if service is None:
+                return False
+            self.qq = service
+            logger.info("[BA运势] 已接入 qqoffice_expand")
+            return True
+        except Exception as exc:
+            logger.info(f"[BA运势] 未接入 qqoffice_expand: {exc}")
+            return False
+
+    @filter.on_plugin_loaded()
+    async def _on_plugin_loaded(self, metadata):
+        if self.qq is None:
+            self._try_bind_qq()
+
+    async def initialize(self):
+        self._try_bind_qq()
+
+    async def _send_card_with_buttons(self, event: AstrMessageEvent, png_path: str) -> bool:
+        """把卡片图上传 QQ 素材库，用 markdown 图片 + 指令按钮一条发出。"""
+        plat = str(event.get_platform_name() or "")
+        if not plat.startswith("qq_official"):
+            return False
+        if self.qq is None and not self._try_bind_qq():
+            return False
+        try:
+            from pathlib import Path as _Path
+
+            from PIL import Image as _Image
+
+            raw = _Path(png_path).read_bytes()
+            md5 = hashlib.md5(raw).hexdigest()
+            sha1 = hashlib.sha1(raw).hexdigest()
+            with _Image.open(png_path) as im:
+                w, h = im.size
+            view = self.qq.for_event(event)
+            prep = await view.call(
+                "POST",
+                "/v2/media-images/prepare",
+                json={
+                    "file_name": "fortune.png",
+                    "file_size": len(raw),
+                    "content_type": "image/png",
+                    "md5": md5,
+                    "sha1": sha1,
+                },
+            )
+            upload_id = prep.get("upload_id") or ""
+            presigned = prep.get("presigned_url") or ""
+            if not (upload_id and presigned):
+                logger.warning(f"[BA运势] 素材 prepare 异常：{prep}")
+                return False
+            async with aiohttp.ClientSession(trust_env=True) as sess:
+                async with sess.put(
+                    presigned,
+                    data=raw,
+                    headers={"Content-Type": "image/png"},
+                    timeout=aiohttp.ClientTimeout(total=120),
+                ) as r:
+                    if r.status not in (200, 201, 204):
+                        logger.warning(f"[BA运势] 素材直传失败：{r.status}")
+                        return False
+                    etag = (r.headers.get("ETag") or "").strip('"')
+            done = await view.call(
+                "POST",
+                "/v2/media-images/complete",
+                json={"upload_id": upload_id, "md5": etag or md5},
+            )
+            url = done.get("url") or ""
+            image_id = done.get("image_id") or ""
+            if not url:
+                logger.warning(f"[BA运势] 素材 complete 异常：{done}")
+                return False
+            kb = self.qq.kb()
+            kb.row(
+                self.qq.btn("🎲 再抽一次", "/ba运势", type=2, enter=True),
+                self.qq.btn("📊 今日榜单", "/ba运势榜", type=2, enter=True),
+            )
+            md = self.qq.md_image(url, width=w, height=h)
+            await view.send_rich(markdown=self.qq.md(md), keyboard=kb.build())
+            if image_id:
+                try:
+                    await view.call(
+                        "DELETE", f"/v2/media-images/{image_id}/delete"
+                    )
+                except Exception:
+                    pass
+            logger.info("[BA运势] 卡片+按钮已同条发送")
+            return True
+        except Exception as exc:
+            logger.warning(f"[BA运势] 卡片+按钮发送失败：{exc}")
+            return False
+
+    async def _send_action_buttons(self, event: AstrMessageEvent) -> None:
+        """发一条带指令按钮的提示：再抽一次 / 榜单。"""
+        plat = str(event.get_platform_name() or "")
+        logger.info(f"[BA运势] 尝试发送操作按钮，platform={plat!r}")
+        if not plat.startswith("qq_official"):
+            logger.info("[BA运势] 非 QQ 官方平台，跳过操作按钮")
+            return
+        if self.qq is None and not self._try_bind_qq():
+            logger.info("[BA运势] 未绑定 qqoffice_expand，跳过操作按钮")
+            return
+        try:
+            kb = self.qq.kb()
+            kb.row(
+                self.qq.btn("🎲 再抽一次", "/ba运势", type=2, enter=True),
+                self.qq.btn("📊 今日榜单", "/ba运势榜", type=2, enter=True),
+            )
+            view = self.qq.for_event(event)
+            await view.send_rich(
+                markdown=self.qq.md("想看别人的运势，或者再抽一次？点下面 👇"),
+                keyboard=kb.build(),
+            )
+            logger.info("[BA运势] 操作按钮已发送")
+        except Exception as exc:
+            logger.warning(f"[BA运势] 发送操作按钮失败：{exc}")
 
     # ───────────────────────── 日期 ─────────────────────────
     @staticmethod
@@ -1020,6 +1151,8 @@ class BAFortunePlugin(Star):
             try:
                 avatar = await self._user_avatar_uri(event)
                 card = await self._render_card(result, avatar)
+                if await self._send_card_with_buttons(event, card):
+                    return
                 yield event.image_result(card)
                 return
             except Exception as exc:
@@ -1090,4 +1223,9 @@ class BAFortunePlugin(Star):
         task = getattr(self, "_midnight_task", None)
         if task is not None:
             task.cancel()
+        for unsub in getattr(self, "_qq_unsubs", []):
+            try:
+                unsub()
+            except Exception:
+                pass
         logger.info("[BA运势] 插件已卸载")
