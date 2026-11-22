@@ -6,7 +6,7 @@ desc: |-
 
   发送 `/ba运势` 抽一张运势卡片：1~5 星、幸运学生（122 位）、社团、道具、四项运气条、宜忌与解读。
   发送 `/ba运势榜` 查看本群今日榜单（含数据概览与星级分布）。
-version: 1.4.2
+version: 1.6.0
 author: chen
 repo: "https://github.com/Arona688/astrbot_plugin_ba_fortune"
 astrbot_version: ">=4.20.0"
