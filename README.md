@@ -1,6 +1,6 @@
 # BA 运势（AstrBot 插件）
 
-![version](https://img.shields.io/badge/version-1.6.0-blue)
+![version](https://img.shields.io/badge/version-1.6.2-blue)
 ![AstrBot](https://img.shields.io/badge/AstrBot-%3E%3D4.20.0-4B8BBE)
 ![license](https://img.shields.io/badge/license-MIT-green)
 
