@@ -5,7 +5,7 @@ desc: |-
   发 `/ba运势` 抽一张今日运势卡片，`/ba运势榜` 看本群榜单。
 
   目前仅在 QQ 官方机器人测试过。
-version: 1.6.4
+version: 1.6.5
 author: chen
 repo: "https://github.com/Arona688/astrbot_plugin_ba_fortune"
 astrbot_version: ">=4.20.0"
