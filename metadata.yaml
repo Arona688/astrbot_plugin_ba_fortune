@@ -1,21 +1,16 @@
 name: astrbot_plugin_ba_fortune
 display_name: BA 今日运势
-short_desc: 碧蓝档案主题的每日运势卡片
+short_desc: 碧蓝档案主题的每日运势
 desc: |-
-  碧蓝档案主题的每日运势。
+  发 `/ba运势` 抽一张今日运势卡片，`/ba运势榜` 看本群榜单。
 
-  发送 `/ba运势` 抽一张运势卡片：1~5 星、幸运学生、社团、道具、四项运气条、宜忌与解读。
-  QQ 官方机器人卡片下方带指令按钮「再抽一次 / 今日榜单」。
-
-  发送 `/ba运势榜` 查看本群今日榜单。
-version: 1.6.3
+  目前仅在 QQ 官方机器人测试过。
+version: 1.6.4
 author: chen
 repo: "https://github.com/Arona688/astrbot_plugin_ba_fortune"
 astrbot_version: ">=4.20.0"
 support_platforms:
   - qq_official
-  - qq_official_webhook
-  - aiocqhttp
 tags:
   - 碧蓝档案
   - BlueArchive
