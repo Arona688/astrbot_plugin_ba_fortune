@@ -1,6 +1,6 @@
 # BA 运势（AstrBot 插件）
 
-![version](https://img.shields.io/badge/version-1.6.2-blue)
+![version](https://img.shields.io/badge/version-1.6.3-blue)
 ![AstrBot](https://img.shields.io/badge/AstrBot-%3E%3D4.20.0-4B8BBE)
 ![license](https://img.shields.io/badge/license-MIT-green)
 
@@ -199,3 +199,14 @@ data/plugin_data/astrbot_plugin_ba_fortune/daily.json
 
 **Q：`/ba运势` 没反应，走 AI 了？**
 确认指令带 `/`，或 @ 机器人。1.4.0 起已兼容带 `@` 与前置空格的写法。
+
+## 平台兼容性
+
+| 平台 | 状态 | 说明 |
+|---|---|---|
+| **QQ 官方机器人** | ✅ 已测试 | 运势卡片、指令按钮、榜单均正常 |
+| OneBot v11（NapCat / aiocqhttp） | ⚠️ 未测试 | 文字指令可用；按钮可能不渲染 |
+| 其他适配器 | ⚠️ 未测试 | 仅保证文字指令 |
+
+> 开发与测试环境为 QQ 官方机器人。OneBot v11 下卡片下方按钮可能不显示，
+> 可直接发送 `/ba运势` 或 `/ba运势榜`。遇到问题欢迎反馈。
